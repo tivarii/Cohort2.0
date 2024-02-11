@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "router-dom": "^2.2.11",
+    "vite": "^5.0.12"
+  }
+}

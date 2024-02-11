@@ -1,0 +1,43 @@
+<!-- <html>
+    <style>
+        .clas1{
+            background-color: red;
+            padding: 20;
+            margin: 20;
+            color: green;
+            font-size: 100;
+        }
+    </style>
+    <body>
+        <div class="clas1">
+            hi there 1
+        </div>
+        <div class="clas1">
+            hi there 2
+        </div>
+    </body>
+</html> -->
+
+<html>
+    <script>
+        async function sum(){
+             const ele=document.getElementById("div1");
+             const a=document.getElementById("1st").value;
+             const b=document.getElementById("2nd").value;
+            //  const c= parseInt(a)+parseInt(b);
+            //  ele.innerHTML=`The sum is ${c}`;
+            //  console.log(ele);
+
+            const pr1=await fetch("https://sum-server.100xdevs.com/sum?a="+ a + " &b=" +b);
+            const c=await pr1.text();
+            ele.innerHTML=`The sum is ${c}`;
+            
+        }
+    </script>
+    <body>
+        <input id="1st" type="text" placeholder="firstNumber"><br>
+        <input id="2nd" type="text" placeholder="secondNumber"><br>
+        <button onclick=sum()>Calculate Sum</button><br>
+        <div id="div1"></div>
+    </body>
+</html>

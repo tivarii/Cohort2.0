@@ -1,0 +1,79 @@
+<html>
+    
+    <body>
+        <input id="title" type="text" placeholder="title"> <br><br>
+        <input id="discription" type="text" placeholder="discription"><br><br>
+        <!-- <button onclick="addTodo()">Add</button><br><br> -->
+        <div id="container"></div>
+        
+
+        <script>
+            let globalId=1;
+            function done(id){
+                const par=document.getElementById(id);
+                par.children[2].innerHTML="Done!";
+    
+            }
+            function createChild(title,discription,id){
+                const child=document.createElement("div");
+                const titleDiv=document.createElement("div");
+                titleDiv.innerHTML=`<h3>${title}</h3>`;
+                const discriptionDiv=document.createElement("div");
+                discriptionDiv.innerHTML=discription;
+                const btn=document.createElement("button");
+                btn.innerHTML="Mark Done";
+                child.appendChild(titleDiv);
+                child.appendChild(discriptionDiv);
+                child.appendChild(btn);
+                child.setAttribute("id",id);
+                btn.setAttribute("onclick",`done(${id})`);
+                return child;
+            }
+    
+            function addTodo(){
+                const title=document.getElementById("title").value;
+                const discription=document.getElementById("discription").value;
+                const container=document.getElementById("container");
+    
+    
+            //basic way to add todo
+                // container.innerHTML=`
+                // <div>
+                // <div>${title}</div><br>
+                // <div>
+                //     ${discription}
+                //     <button>done</done>
+                // </div>
+                // </div>
+                // `
+    
+            //now we will do something with the help of "document.createElement" and "document.appendChild";
+                const child=createChild(title,discription,globalId++);
+                console.log(child);
+                container.appendChild(child);
+                
+    
+    
+            }
+
+            function updateTodo(state){
+                const par=document.getElementById("container");
+                par.innerHTML="";
+                for(let i=0;i<2;i++){
+                    const title=(state[i].title).toString();
+                    const discription=state[i].discription.toString();
+                    const id=state[i].id.toString();
+                    const child=createChild(title,discription,id);
+                    console.log(child);
+                    par.appendChild(child);
+                }
+            }
+            window.setInterval(async function(){
+                const res=await fetch("https://sum-server.100xdevs.com/todos");
+                const json=res.json();
+                console.log(json.todos);
+                updateTodo(json);
+            },5000)
+        </script>
+    </body>
+</html>

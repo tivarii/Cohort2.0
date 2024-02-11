@@ -1,0 +1,33 @@
+<html>
+    <style>
+        /* Add styles for inputs */
+        input {
+            margin-bottom: 10px; /* Adds margin below each input */
+            padding: 8px; /* Adds padding inside each input */
+        }
+    </style>
+    <script>
+        async function si(){
+            const p=document.getElementById("p").value;
+            const r=document.getElementById("r").value;
+            const t=document.getElementById("t").value;
+            const pr1=await fetch("http://localhost:3000/interest?p=" + p + "&r=" + r + "&t="+t);
+            const si=await pr1.text();
+            // const si=4;
+            const cnt=document.getElementById("interest");
+            cnt.innerHTML=`The Simple Interest is ${si}`;
+        }
+    </script>
+    <body>
+        <input  type="text" id="p" placeholder="principle">
+        <br>
+        <input type="text" id="r" placeholder="rate">
+        <br>
+        <input type="text" id="t" placeholder="time">
+        <br>
+        <button onclick="si()">Calculate Simple Interest</button>
+        <br>
+        <div id="interest"></div>
+        
+    </body>
+</html>

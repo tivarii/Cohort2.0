@@ -1,0 +1,35 @@
+<html>
+
+    
+    <body>
+        <div id="container"></div>
+        <script>
+            let state={
+                count: 0,
+            }
+    
+    
+            function onrerender(){
+                console.log("in render");
+                document.getElementById("container").innerHTML="";
+                const component=buttonComponent(state.count);
+                document.getElementById("container").appendChild(component);
+    
+            }
+            function onButtonClick(){
+                console.log("in render");
+                state.count++;
+                onrerender();
+            }
+    
+            function buttonComponent(count){
+                const d1=document.getElementById("container");
+                const btn=document.createElement("button");
+                btn.setAttribute("onclick",'onButtonClick()');
+                btn.innerHTML=`Counter ${count}`;
+                return btn;
+            }
+            onrerender();
+        </script>
+    </body>
+</html>
